@@ -39,7 +39,7 @@ module Language.Haskell.Exts.QQ
     , tyWithMode
     ) where
 
-import qualified Language.Haskell.Exts as Hs
+import qualified Language.Haskell.Exts.Simple as Hs
 import qualified Language.Haskell.Meta.Syntax.Translate as Hs
 import Language.Haskell.TH.Syntax
 import Language.Haskell.TH.Quote
@@ -97,7 +97,7 @@ decsWithMode mode = qq $ \src -> fmap strip $ Hs.parseModuleWithMode mode src
         -- listing of decls (possibly with import istatements and other extras)
         -- is a valid module.
         strip :: Hs.Module -> [Hs.Decl]
-        strip (Hs.Module _ _ _ _ _ _ decs) = decs
+        strip (Hs.Module _ _ _ decs) = decs
 
 tyWithMode :: Hs.ParseMode -> QuasiQuoter
 tyWithMode = qq . Hs.parseTypeWithMode
